@@ -1,5 +1,17 @@
 # Astro + Drizzle + HTMX
 
+Simple TODO list to explore Astro + HTMX (known as [AHA Stack](https://ahastack.dev/))
+
+Install deps and run locally:
+```
+npm install
+npm run dev
+```
+
+This project uses local `SQLite` so no db configuration is needed. All migrations will be applied when running the app.
+
+## Commands
+
 All commands are run from the root of the project, from a terminal:
 
 | Command                   | Action                                             |
