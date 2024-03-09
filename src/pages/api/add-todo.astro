@@ -1,0 +1,21 @@
+---
+import TodoItem from "../../components/TodoItem.astro";
+import { createForm } from "simple:form";
+import z from "zod";
+import { createTodo } from "../../services/todoService";
+
+export const partial = true;
+
+const addTodoForm = createForm({
+  description: z.string(),
+});
+
+const res = await Astro.locals.form.getData(addTodoForm);
+const newItemDescription = res?.data?.description?.trim();
+
+const newTodo = !!newItemDescription && (await createTodo(newItemDescription));
+
+Astro.response.headers.append("HX-Trigger", "refetch-counter");
+---
+
+{newTodo && <TodoItem item={newTodo} />}

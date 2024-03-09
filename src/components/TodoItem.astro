@@ -1,0 +1,25 @@
+---
+import type { TodoItem } from "../db/schema";
+
+type Props = {
+  item: TodoItem;
+};
+
+const { item } = Astro.props;
+---
+
+<li class="mb-2" data-loading-states>
+  <div class="flex" data-loading-class="opacity-50">
+    <div class="flex-1">
+      {item.description}
+    </div>
+    <button
+      class="text-white bg-red-600 px-2 rounded"
+      hx-delete={`/api/delete-item?id=${item.id}`}
+      hx-target="closest li"
+      hx-swap="outerHTML"
+    >
+      X
+    </button>
+  </div>
+</li>

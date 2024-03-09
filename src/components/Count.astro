@@ -1,0 +1,9 @@
+---
+import { getTodosCount } from "../services/todoService";
+
+const count = await getTodosCount();
+---
+
+<p class="mb-4">
+  Todos: {count}
+</p>

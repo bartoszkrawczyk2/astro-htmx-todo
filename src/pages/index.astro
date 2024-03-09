@@ -1,0 +1,39 @@
+---
+import Layout from "../components/Layout.astro";
+import TodoItem from "../components/TodoItem.astro";
+import Count from "../components/Count.astro";
+
+import { getTodos } from "../services/todoService";
+
+const todos = await getTodos();
+---
+
+<Layout>
+  <div class="max-w-52">
+    <div
+      id="counter"
+      hx-get="/api/get-count"
+      hx-trigger="refetch-counter from:body"
+    >
+      <Count />
+    </div>
+
+    <form
+      class="flex gap-2 w-full mb-2"
+      hx-post="/api/add-todo"
+      hx-target="#items"
+      hx-swap="afterbegin"
+      hx-on::after-request="this.reset()"
+    >
+      <input
+        name="description"
+        class="border-2 rounded flex-1 w-full"
+        autofocus
+      />
+      <button class="bg-blue-500 rounded px-2 text-white">add</button>
+    </form>
+    <ul class="empty:hidden w-full block" id="items" hx-ext="loading-states">
+      {todos.map((todo) => <TodoItem item={todo} />)}
+    </ul>
+  </div>
+</Layout>

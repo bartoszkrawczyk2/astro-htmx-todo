@@ -1,0 +1,16 @@
+---
+import { deleteTodo } from "../../services/todoService";
+import { delay } from "../../utils/delay";
+
+export const partial = true;
+
+if (Astro.request.method === "DELETE") {
+  const id = Number(Astro.url.searchParams.get("id"));
+  await deleteTodo(id);
+}
+
+// simulate longer response to show loader
+await delay(1000);
+
+Astro.response.headers.append("HX-Trigger", "refetch-counter");
+---
