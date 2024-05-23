@@ -1,5 +1,6 @@
 ---
 import type { TodoItem } from "../db/schema";
+import Trash from "./icons/Trash.astro";
 
 type Props = {
   item: TodoItem;
@@ -8,18 +9,17 @@ type Props = {
 const { item } = Astro.props;
 ---
 
-<li class="mb-2" data-loading-states>
-  <div class="flex" data-loading-class="opacity-50">
-    <div class="flex-1">
-      {item.description}
-    </div>
-    <button
-      class="text-white bg-red-600 px-2 rounded"
-      hx-delete={`/api/delete-item?id=${item.id}`}
-      hx-target="closest li"
-      hx-swap="outerHTML"
-    >
-      X
-    </button>
+<li class="mb-2 flex [&.htmx-request]:opacity-50 [&.htmx-request]:bg-gray-200">
+  <div class="flex-1">
+    {item.description}
   </div>
+  <button
+    class="text-white bg-red-600 px-2 rounded"
+    hx-delete={`/api/delete-item?id=${item.id}`}
+    hx-target="closest li"
+    hx-swap="outerHTML"
+    hx-indicator="closest li"
+  >
+    <Trash />
+  </button>
 </li>

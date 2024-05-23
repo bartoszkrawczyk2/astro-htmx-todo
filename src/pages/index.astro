@@ -2,18 +2,23 @@
 import Layout from "../components/Layout.astro";
 import TodoItem from "../components/TodoItem.astro";
 import Count from "../components/Count.astro";
+import { ReactCounter } from "../components/ReactCounter";
 
 import { getTodos } from "../services/todoService";
+import { REFETCH_COUNTER } from "../utils/triggers";
 
 const todos = await getTodos();
 ---
 
 <Layout>
   <div class="max-w-52">
+    <ReactCounter label="prop from server" client:load />
+
     <div
+      class="mt-5"
       id="counter"
       hx-get="/api/get-count"
-      hx-trigger="refetch-counter from:body"
+      hx-trigger={`${REFETCH_COUNTER} from:body`}
     >
       <Count />
     </div>

@@ -1,6 +1,7 @@
 ---
 import { deleteTodo } from "../../services/todoService";
 import { delay } from "../../utils/delay";
+import { REFETCH_COUNTER } from "../../utils/triggers";
 
 export const partial = true;
 
@@ -12,5 +13,5 @@ if (Astro.request.method === "DELETE") {
 // simulate longer response to show loader
 await delay(1000);
 
-Astro.response.headers.append("HX-Trigger", "refetch-counter");
+Astro.response.headers.append("HX-Trigger", REFETCH_COUNTER);
 ---

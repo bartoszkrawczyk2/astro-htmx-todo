@@ -3,6 +3,7 @@ import TodoItem from "../../components/TodoItem.astro";
 import { createForm } from "simple:form";
 import z from "zod";
 import { createTodo } from "../../services/todoService";
+import { REFETCH_COUNTER } from "../../utils/triggers";
 
 export const partial = true;
 
@@ -15,7 +16,7 @@ const newItemDescription = res?.data?.description?.trim();
 
 const newTodo = !!newItemDescription && (await createTodo(newItemDescription));
 
-Astro.response.headers.append("HX-Trigger", "refetch-counter");
+Astro.response.headers.append("HX-Trigger", REFETCH_COUNTER);
 ---
 
 {newTodo && <TodoItem item={newTodo} />}
